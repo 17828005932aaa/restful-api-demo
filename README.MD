@@ -5,4 +5,4 @@
 + impl 基于Mysql存储
 + http 协议暴露
 
-go main start 
+go main.go start 
