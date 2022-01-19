@@ -7,7 +7,7 @@ import (
 	"restful-api-demo/conf"
 	"time"
 
-	hostAPI "restful-api-demo/app/host/http"
+	hostAPI "restful-api-demo/apps/host/http"
 
 	"github.com/infraboard/mcube/logger"
 	"github.com/infraboard/mcube/logger/zap"

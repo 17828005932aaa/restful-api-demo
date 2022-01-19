@@ -6,6 +6,7 @@ import (
 	"fmt"
 	"sync"
 	"time"
+
 	_ "github.com/go-sql-driver/mysql"
 	"github.com/infraboard/mcube/logger/zap"
 )
@@ -21,6 +22,7 @@ func Cf() *Config {
 	}
 	return cf
 }
+
 //全局配置对象的设置方式
 func SetGlobalConfig(conf *Config) {
 	cf = conf
@@ -142,11 +144,13 @@ func (m *mysql) getDBConn() (*sql.DB, error) {
 func (m *mysql) GetDB() (*sql.DB, error) {
 	m.lock.Lock()
 	defer m.lock.Unlock()
-	conn, err := m.getDBConn()
-	if err != nil {
-		return nil, err
+	if db == nil {
+		conn, err := m.getDBConn()
+		if err != nil {
+			return nil, err
+		}
+		db = conn
 	}
-	db = conn
 	return db, nil
 }
 

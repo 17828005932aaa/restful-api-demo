@@ -1,0 +1,18 @@
+mode: atomic
+mode: atomic
+restful-api-demo/apps/host/host_interfase.go:27.43,29.2 1 0
+restful-api-demo/apps/host/host_interfase.go:31.65,35.2 1 0
+restful-api-demo/apps/host/host_interfase.go:49.53,55.2 1 0
+restful-api-demo/apps/host/host_interfase.go:57.51,63.2 1 0
+restful-api-demo/apps/host/model.go:26.29,33.2 1 2
+restful-api-demo/apps/host/model.go:35.33,37.2 1 0
+restful-api-demo/apps/host/model.go:39.59,40.16 1 1
+restful-api-demo/apps/host/model.go:48.2,48.17 1 1
+restful-api-demo/apps/host/model.go:55.2,55.12 1 1
+restful-api-demo/apps/host/model.go:40.16,43.17 2 1
+restful-api-demo/apps/host/model.go:43.17,45.4 1 0
+restful-api-demo/apps/host/model.go:48.17,51.17 2 1
+restful-api-demo/apps/host/model.go:51.17,53.4 1 0
+restful-api-demo/apps/host/model.go:59.54,62.2 2 0
+restful-api-demo/apps/host/model.go:123.35,127.2 1 0
+restful-api-demo/apps/host/model.go:129.35,131.2 1 0
