@@ -1,0 +1,152 @@
+syntax =  "proto3";
+
+package demo;
+option go_package="restful-api-demo/apps/host";
+
+service Service {
+    //录入主机信息
+    rpc CreateHost(Host) returns (Host); 
+    //查询主机列表信息
+    rpc QueryHost(QueryHostRequest) returns (HostSet);
+    //主机详情查询
+    rpc DescribeHost(DescribeHostRquest) returns (Host);
+    //主机信息修改
+    rpc UpdateHost(UpdateHostRequest) returns (Host);
+    //主机删除
+    rpc DeleteHost(DeleteHostRequest) returns (Host);
+
+
+
+}
+
+
+//定义Host
+
+message Host {
+    // @gotags: json:"resource_hash"
+    string resource_hash = 1;
+    // @gotags: json:"describe_hash"
+    string describe_hash = 2;
+    // @gotags: json:"resource"
+    Resource resource = 3;
+    // @gotags: json:"describe"
+    Describe describe = 4;
+}
+
+
+//定义枚举
+enum Vendor {
+    ALI_CLOUD = 0;
+    TX_CLOUD = 1;
+    HW_CLOUD = 2;
+}
+
+// 定义 Resource
+message Resource {
+    // @gotags: json:"id"
+    string id = 1; // 全局唯一Id
+    // @gotags:json:"vendor"
+    Vendor vendor = 2; // 厂商
+    // @gotags: json:"region" validate:"required"
+    string region = 3; // 地域
+    // @gotags: json:"zone"
+    string Zone = 4; //区域
+    // 	//使用13位的时间戳
+ 	//为什么不用Datetime，如果使用数据时间,数据库会默认加上时区
+    // @gotags: json:"create_at" validate:"required"
+    int64 create_at = 5; //创建时间
+    // @gotags: json:"expire_at"
+    int64 expire_at = 6; //过期时间
+    // @gotags: json:"category"
+    string category = 7; // 种类
+    // @gotags: json:"type"
+    string type = 8; // 规格
+    // @gotags: json:"instance_id"
+    string instance_id = 9; // 实例ID
+    // @gotags: json:"name" validate:"required"
+    string name = 10; // 名称
+    // @gotags: json:"description"
+    string description = 11; // 描述
+    // @gotags: json:"status" validate:"required"
+    string status = 12; // 服务商中的状态
+    // @gotags: json:"tags"
+    map<string,string> Tags = 13; //标签
+    // @gotags: json:"update_at"
+    int64 update_at = 14; // 更新时间
+    // @gotags: json:"sync_at"
+    int64 sync_at = 15; // 同步时间
+    // @gotags: json:"sync_accout"
+    string sync_accout = 16; // 同步的账号
+    // @gotags: json:"public_ip"
+    string public_ip = 17; // 公网IP
+    // @gotags: json:"private_ip" validate:"required"
+    string private_ip = 18; // 内网IP
+    // @gotags: json:"pay_type"
+    string pay_type = 19; // 实例付费方式
+
+}
+
+message Describe {
+    // @gotags: json:"cpu" validate:"required"
+    int64 cpu  = 1; // 核数
+    // @gotags: json:"memory" validate:"required"
+    int64 memory = 2; // 内存
+    // @gotags: json:"gpu_amount"
+    int64 gpu_amount = 3; // GPU数量
+    // @gotags: json:"gpu_spec"
+    string gpu_spec = 4; // GPU类型
+    // @gotags: json:"os_type"
+    string os_type = 5; // 操作系统类型，分为Windows和Linux
+    // @gotags: json:"os_name"
+    string os_name = 6; // 操作系统名称
+    // @gotags: json:"serial_number"
+    string serial_number = 7; // 序列号
+    // @gotags: json:"image_id"
+    string image_id = 8; // 镜像ID
+    // @gotags: json:"internet_max_bandwidth_out"
+    int64 internet_max_bandwidth_out = 9; // 公网出带宽最大值，单位为 Mbps
+    // @gotags: json:"internet_max_bandwidth_in"
+    int64 internet_max_bandwidth_in = 10; // 公网入带宽最大值，单位为 Mbps
+    // @gotags: json:"key_pair_name"
+    string key_pair_name = 11; // 秘钥对名称
+    // @gotags: json:"security_groups"
+    string security_groups = 12; // 安全组  采用逗号分隔
+
+
+}
+
+message HostSet {
+    // @gotags: json:"total"
+    int64 total = 1;
+    // @gotags: json:"items"
+    repeated Host items = 2;
+}
+
+message QueryHostRequest {
+    int64 pagesize = 1;
+    int64 page_number = 2;
+    string keywords = 3;
+}
+
+enum UpdateMode {
+    PUT = 0;
+    PATCH = 1;
+}
+
+message DescribeHostRquest {
+    string id = 1;
+}
+
+message UpdateHostRequest {
+    // @gotags: json:"update_mode"
+    UpdateMode update_mode = 1;
+    // @gotags: json:"resource"
+    Resource resource = 2;
+    // @gotags: json:"describe"
+    Describe describe = 3;
+    
+}
+
+message DeleteHostRequest {
+    string id = 1;
+}

@@ -2,6 +2,7 @@ package impl
 
 import (
 	"database/sql"
+	"restful-api-demo/apps/host"
 	"restful-api-demo/conf"
 
 	"github.com/infraboard/mcube/logger"
@@ -20,6 +21,7 @@ type impl struct {
 	//依赖数据库
 	db *sql.DB
 
+	host.UnimplementedServiceServer
 }
 
 func (i *impl) Init() error {

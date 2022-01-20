@@ -44,6 +44,8 @@ func newDefaultApp() *app {
 		Host: "127.0.0.1",
 		Port: "3580",
 		Key:  "default app key",
+		GrpcHost: "127.0.0.1",
+		GrpcPort: "3570",
 	}
 }
 
@@ -91,6 +93,15 @@ type app struct {
 	Port string `toml:"port"`
 	// 比较敏感的数据,入库的是加密后的数据,加密的密钥就是该配置
 	Key string `toml:"key"`
+
+	//127.0.0.1
+	GrpcHost string `toml:"grpc_host"`
+	//3570
+	GrpcPort string `toml:"grpc_port"`
+}
+
+func (a app) GrpcAddr() string {
+	return fmt.Sprintf("%s:%s",a.GrpcHost,a.GrpcPort)
 }
 
 func (a *app) Addr() string {

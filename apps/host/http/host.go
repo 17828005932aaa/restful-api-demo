@@ -54,8 +54,9 @@ func (h *handler) QueryHost(w http.ResponseWriter, r *http.Request, _ httprouter
 	}
 
 	req := &host.QueryHostRequest{
-		PageSize:   pageSize,
-		PageNumber: pageNumber,
+		Pagesize:   int64(pageSize),
+		PageNumber: int64(pageNumber),
+		Keywords: qs.Get("keywords"),
 	}
 	set, err := h.host.QueryHost(r.Context(), req)
 	if err != nil {
@@ -88,7 +89,7 @@ func (h *handler) UpdateHost(w http.ResponseWriter, r *http.Request, ps httprout
 		return
 	}
 
-	req.Id = ps.ByName("id")
+	req.Resource.Id = ps.ByName("id")
 
 	set, err := h.host.UpdateHost(r.Context(), req)
 	if err != nil {
@@ -110,7 +111,7 @@ func (h *handler) PatchHost(w http.ResponseWriter, r *http.Request, ps httproute
 		return
 	}
 
-	req.Id = ps.ByName("id")
+	req.Resource.Id = ps.ByName("id")
 
 	set, err := h.host.UpdateHost(r.Context(), req)
 	if err != nil {

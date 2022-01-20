@@ -13,7 +13,7 @@ import (
 var API = handler{}
 
 type handler struct {
-	host host.Service
+	host host.ServiceServer
 	log  logger.Logger
 }
 

@@ -12,10 +12,10 @@ func TestHostUpdate(t *testing.T) {
 
 	h := host.NewDefaultHost()
 	patch := host.NewDefaultHost()
-	patch.Name = "patch01"
+	patch.Resource.Name = "patch01"
 
 	err := h.Patch(patch.Resource, patch.Describe)
 	if should.NoError(err) {
-		should.Equal(patch.Name, h.Name)
+		should.Equal(patch.Resource.Name, h.Resource.Name)
 	}
 }

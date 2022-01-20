@@ -62,6 +62,7 @@ func NewService(conf conf.Config) *Service {
 	return &Service{
 		conf: conf,
 		http: protocol.NewHTTPService(),
+		grpc: protocol.NewGrpcService(),
 		log:  zap.L().Named("Service"),
 	}
 }
@@ -71,11 +72,15 @@ func NewService(conf conf.Config) *Service {
 //服务可能会启动很多模块,http,grpc,crontable
 type Service struct {
 	conf conf.Config
+	//http服务
 	http *protocol.HTTPService
+	//grpc服务
+	grpc *protocol.GrpcService
 	log  logger.Logger
 }
 
 func (s *Service) Start() error {
+	go s.grpc.Start()
 	return s.http.Start()
 }
 
@@ -84,6 +89,8 @@ func (s *Service) waitSign(sign chan os.Signal) {
 	for sg := range sign {
 		switch v := sg.(type) {
 		default:
+			//先停止grpc服务
+			s.grpc.Stop()
 			// 资源清理
 			s.log.Infof("receive signal '%v', start graceful shutdown", v.String())
 			if err := s.http.Stop(); err != nil {
