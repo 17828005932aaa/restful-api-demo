@@ -5,15 +5,18 @@ import (
 	"fmt"
 	"os"
 	"os/signal"
-	app "restful-api-demo/apps"
-	"restful-api-demo/apps/host/impl"
 	"restful-api-demo/conf"
 	"restful-api-demo/protocol"
 	"syscall"
 
+	"github.com/infraboard/mcube/app"
 	"github.com/infraboard/mcube/logger"
 	"github.com/infraboard/mcube/logger/zap"
 	"github.com/spf13/cobra"
+
+	//注册所有的app模块
+	//所有的groc app 都已经 在 grpcApps map 里
+	_ "restful-api-demo/apps/all"
 )
 
 var (
@@ -36,12 +39,18 @@ var startCmd = &cobra.Command{
 			return err
 		}
 
-		//初始化服务层 Ioc初始化
-		if err := impl.Service.Init(); err != nil {
+		//调用app.initAllapp加载所有服务
+		if err :=app.InitAllApp(); err != nil {
 			return err
-		}
-		//初始化实例注册给IOC层
-		app.Host = impl.Service
+		} 
+
+
+		// //初始化服务层
+		// if err := impl.Service.Init(); err != nil {
+		// 	return err
+		// }
+		// //初始化实例注册给IOC层
+		// app.Host = impl.Service
 
 		//启动服务后，需要处理的事件
 		ch := make(chan os.Signal, 1)
@@ -81,6 +90,10 @@ type Service struct {
 
 func (s *Service) Start() error {
 	go s.grpc.Start()
+
+	//打印加载的grpc服务
+	s.log.Infof("loaded grpc apps %s",app.LoadedGrpcApp())
+
 	return s.http.Start()
 }
 

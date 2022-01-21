@@ -1,7 +1,6 @@
 package client
 
 import (
-	"fmt"
 	"restful-api-demo/apps/host"
 
 	"google.golang.org/grpc"

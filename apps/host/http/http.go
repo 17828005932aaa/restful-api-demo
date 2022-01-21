@@ -1,9 +1,9 @@
 package http
 
 import (
-	app "restful-api-demo/apps"
 	"restful-api-demo/apps/host"
 
+	"github.com/infraboard/mcube/app"
 	"github.com/infraboard/mcube/logger"
 	"github.com/infraboard/mcube/logger/zap"
 	"github.com/julienschmidt/httprouter"
@@ -20,11 +20,16 @@ type handler struct {
 //初始化时，依赖外部host Service的实例对象
 func (h *handler) Init() {
 	h.log = zap.L().Named("HOST API")
-	if app.Host == nil {
-		panic("dependence host service is nil")
-	}
-	h.host = app.Host
+	h.host = app.GetGrpcApp(host.AppName).(host.ServiceServer)
+	// if app.Host == nil {
+	// 	panic("dependence host service is nil")
+	// }
+	// h.host = app.Host
 
+}
+
+func (h *handler) Name() string {
+	return host.AppName
 }
 
 // 把Handler实现的方法 注册给主路由
@@ -36,3 +41,4 @@ func (h *handler) Registry(root *httprouter.Router) {
 	root.PATCH("/hosts/:id", h.PatchHost)
 	root.DELETE("/hosts/:id", h.DeleteHost)
 }
+
