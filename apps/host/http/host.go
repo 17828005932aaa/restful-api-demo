@@ -4,14 +4,13 @@ import (
 	"net/http"
 	"restful-api-demo/apps/host"
 	"strconv"
-
+	"github.com/infraboard/mcube/http/context"
 	"github.com/infraboard/mcube/http/request"
 	"github.com/infraboard/mcube/http/response"
-	"github.com/julienschmidt/httprouter"
 )
 
 //创建host
-func (h *handler) CreateHost(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
+func (h *handler) CreateHost(w http.ResponseWriter, r *http.Request) {
 	// 需要读取用户传底的参数,由于POST请求,我们从body里取出数据
 	req := host.NewDefaultHost()
 	//解析HTTP协议,通过Json反序列化,JSON --> Request
@@ -33,7 +32,7 @@ func (h *handler) CreateHost(w http.ResponseWriter, r *http.Request, _ httproute
 }
 
 //查询主机列表,分页查询
-func (h *handler) QueryHost(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
+func (h *handler) QueryHost(w http.ResponseWriter, r *http.Request) {
 	//url中的参数
 	qs := r.URL.Query()
 
@@ -56,7 +55,7 @@ func (h *handler) QueryHost(w http.ResponseWriter, r *http.Request, _ httprouter
 	req := &host.QueryHostRequest{
 		Pagesize:   int64(pageSize),
 		PageNumber: int64(pageNumber),
-		Keywords: qs.Get("keywords"),
+		Keywords:   qs.Get("keywords"),
 	}
 	set, err := h.host.QueryHost(r.Context(), req)
 	if err != nil {
@@ -67,9 +66,11 @@ func (h *handler) QueryHost(w http.ResponseWriter, r *http.Request, _ httprouter
 	response.Success(w, set)
 }
 
-func (h *handler) DescribeHost(w http.ResponseWriter, r *http.Request, ps httprouter.Params) {
+func (h *handler) DescribeHost(w http.ResponseWriter, r *http.Request) {
+	//从封装的context中获取ByName
+	ctx := context.GetContext(r)
 	req := &host.DescribeHostRquest{
-		Id: ps.ByName("id"),
+		Id: ctx.PS.ByName("id"),
 	}
 
 	set, err := h.host.DescribeHost(r.Context(), req)
@@ -81,7 +82,9 @@ func (h *handler) DescribeHost(w http.ResponseWriter, r *http.Request, ps httpro
 	response.Success(w, set)
 }
 
-func (h *handler) UpdateHost(w http.ResponseWriter, r *http.Request, ps httprouter.Params) {
+func (h *handler) UpdateHost(w http.ResponseWriter, r *http.Request) {
+	//从封装的context中获取ByName
+	ctx := context.GetContext(r)
 	req := host.NewPutUpdateHostRequest()
 	//解析HTTP协议,通过Json反序列化,JSON  --> Request
 	if err := request.GetDataFromRequest(r, req); err != nil {
@@ -89,7 +92,7 @@ func (h *handler) UpdateHost(w http.ResponseWriter, r *http.Request, ps httprout
 		return
 	}
 
-	req.Resource.Id = ps.ByName("id")
+	req.Resource.Id = ctx.PS.ByName("id")
 
 	set, err := h.host.UpdateHost(r.Context(), req)
 	if err != nil {
@@ -103,7 +106,9 @@ func (h *handler) UpdateHost(w http.ResponseWriter, r *http.Request, ps httprout
 	response.Success(w, set)
 }
 
-func (h *handler) PatchHost(w http.ResponseWriter, r *http.Request, ps httprouter.Params) {
+func (h *handler) PatchHost(w http.ResponseWriter, r *http.Request) {
+	//从封装的context中获取ByName
+	ctx := context.GetContext(r)
 	req := host.NewPatchUpdateHostRequest()
 	//解析HTTP协议,通过Json反序列化,JSON  --> Request
 	if err := request.GetDataFromRequest(r, req); err != nil {
@@ -111,7 +116,7 @@ func (h *handler) PatchHost(w http.ResponseWriter, r *http.Request, ps httproute
 		return
 	}
 
-	req.Resource.Id = ps.ByName("id")
+	req.Resource.Id = ctx.PS.ByName("id")
 
 	set, err := h.host.UpdateHost(r.Context(), req)
 	if err != nil {
@@ -125,9 +130,11 @@ func (h *handler) PatchHost(w http.ResponseWriter, r *http.Request, ps httproute
 	response.Success(w, set)
 }
 
-func (h *handler) DeleteHost(w http.ResponseWriter, r *http.Request, ps httprouter.Params) {
+func (h *handler) DeleteHost(w http.ResponseWriter, r *http.Request) {
+	//从封装的context中获取ByName
+	ctx := context.GetContext(r)
 	req := &host.DeleteHostRequest{
-		Id: ps.ByName("id"),
+		Id: ctx.PS.ByName("id"),
 	}
 	set, err := h.host.DeleteHost(r.Context(), req)
 	if err != nil {

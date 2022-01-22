@@ -91,10 +91,12 @@ type Service struct {
 func (s *Service) Start() error {
 	go s.grpc.Start()
 
-	//打印加载的grpc服务
+	//打印加载的grpc&http服务
 	s.log.Infof("loaded grpc apps %s",app.LoadedGrpcApp())
+	s.log.Infof("loaded http apps %s",app.LoadedHttpApp())
 
 	return s.http.Start()
+	
 }
 
 // 当发现用户收到终止掉程序的时候，需要完成处理

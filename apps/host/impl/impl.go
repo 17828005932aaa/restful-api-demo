@@ -42,7 +42,7 @@ func (i *impl) Registry(server *grpc.Server) {
 	host.RegisterServiceServer(server,Service)
 }
 
-//其他模块调用impl包会自动调用init方法
+//其他模块调用impl包会自动调用init函数
 func init() {
 	app.RegistryGrpcApp(Service)
 }
