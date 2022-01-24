@@ -4,6 +4,8 @@ import (
 	"net/http"
 	"restful-api-demo/apps/host"
 	"strconv"
+	"time"
+
 	"github.com/infraboard/mcube/http/context"
 	"github.com/infraboard/mcube/http/request"
 	"github.com/infraboard/mcube/http/response"
@@ -12,12 +14,27 @@ import (
 //创建host
 func (h *handler) CreateHost(w http.ResponseWriter, r *http.Request) {
 	// 需要读取用户传底的参数,由于POST请求,我们从body里取出数据
-	req := host.NewDefaultHost()
+	//
+	//用于接受前端传过来的数据
+	payload := &struct {
+		*host.Resource
+		*host.Describe
+	}{
+		Resource: &host.Resource{
+			CreateAt: time.Now().UnixNano() / 1000000,
+		},
+		Describe: &host.Describe{},
+	}
+
 	//解析HTTP协议,通过Json反序列化,JSON --> Request
-	if err := request.GetDataFromRequest(r, req); err != nil {
+	if err := request.GetDataFromRequest(r, payload); err != nil {
 		response.Failed(w, err)
 		return
 	}
+	//然后把前端传过来的结构体赋值给host
+	req := host.NewDefaultHost()
+	req.Resource = payload.Resource
+	req.Describe = payload.Describe
 
 	//组装成request对象,调用Service方法
 	//1.ctx 一定要传底,如果用户中断请求,你的后端逻辑需要中断

@@ -1,8 +1,6 @@
 package host
 
 import (
-	"time"
-
 	"github.com/go-playground/validator/v10"
 	"github.com/imdario/mergo"
 )
@@ -19,9 +17,7 @@ var (
 
 func NewDefaultHost() *Host {
 	return &Host{
-		Resource: &Resource{
-			CreateAt: time.Now().UnixNano() / 1000000,
-		},
+		Resource: &Resource{},
 		Describe: &Describe{},
 	}
 }

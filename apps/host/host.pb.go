@@ -122,13 +122,13 @@ type Host struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @gotags: json:"resource_hash"
-	ResourceHash string `protobuf:"bytes,1,opt,name=resource_hash,json=resourceHash,proto3" json:"resource_hash,omitempty"`
+	ResourceHash string `protobuf:"bytes,1,opt,name=resource_hash,json=resourceHash,proto3" json:"resource_hash"`
 	// @gotags: json:"describe_hash"
-	DescribeHash string `protobuf:"bytes,2,opt,name=describe_hash,json=describeHash,proto3" json:"describe_hash,omitempty"`
+	DescribeHash string `protobuf:"bytes,2,opt,name=describe_hash,json=describeHash,proto3" json:"describe_hash"`
 	// @gotags: json:"resource"
-	Resource *Resource `protobuf:"bytes,3,opt,name=resource,proto3" json:"resource,omitempty"`
+	Resource *Resource `protobuf:"bytes,3,opt,name=resource,proto3" json:"resource"`
 	// @gotags: json:"describe"
-	Describe *Describe `protobuf:"bytes,4,opt,name=describe,proto3" json:"describe,omitempty"`
+	Describe *Describe `protobuf:"bytes,4,opt,name=describe,proto3" json:"describe"`
 }
 
 func (x *Host) Reset() {
@@ -198,45 +198,45 @@ type Resource struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @gotags: json:"id"
-	Id string `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"` // 全局唯一Id
+	Id string `protobuf:"bytes,1,opt,name=id,proto3" json:"id"` // 全局唯一Id
 	// @gotags:json:"vendor"
-	Vendor Vendor `protobuf:"varint,2,opt,name=vendor,proto3,enum=demo.Vendor" json:"vendor,omitempty"` // 厂商
+	Vendor Vendor `protobuf:"varint,2,opt,name=vendor,proto3,enum=demo.Vendor" json:"vendor"` // 厂商
 	// @gotags: json:"region" validate:"required"
-	Region string `protobuf:"bytes,3,opt,name=region,proto3" json:"region,omitempty"` // 地域
+	Region string `protobuf:"bytes,3,opt,name=region,proto3" json:"region" validate:"required"` // 地域
 	// @gotags: json:"zone"
-	Zone string `protobuf:"bytes,4,opt,name=Zone,proto3" json:"Zone,omitempty"` //区域
+	Zone string `protobuf:"bytes,4,opt,name=Zone,proto3" json:"zone"` //区域
 	// 	//使用13位的时间戳
 	//为什么不用Datetime，如果使用数据时间,数据库会默认加上时区
 	// @gotags: json:"create_at" validate:"required"
-	CreateAt int64 `protobuf:"varint,5,opt,name=create_at,json=createAt,proto3" json:"create_at,omitempty"` //创建时间
+	CreateAt int64 `protobuf:"varint,5,opt,name=create_at,json=createAt,proto3" json:"create_at" validate:"required"` //创建时间
 	// @gotags: json:"expire_at"
-	ExpireAt int64 `protobuf:"varint,6,opt,name=expire_at,json=expireAt,proto3" json:"expire_at,omitempty"` //过期时间
+	ExpireAt int64 `protobuf:"varint,6,opt,name=expire_at,json=expireAt,proto3" json:"expire_at"` //过期时间
 	// @gotags: json:"category"
-	Category string `protobuf:"bytes,7,opt,name=category,proto3" json:"category,omitempty"` // 种类
+	Category string `protobuf:"bytes,7,opt,name=category,proto3" json:"category"` // 种类
 	// @gotags: json:"type"
-	Type string `protobuf:"bytes,8,opt,name=type,proto3" json:"type,omitempty"` // 规格
+	Type string `protobuf:"bytes,8,opt,name=type,proto3" json:"type"` // 规格
 	// @gotags: json:"instance_id"
-	InstanceId string `protobuf:"bytes,9,opt,name=instance_id,json=instanceId,proto3" json:"instance_id,omitempty"` // 实例ID
+	InstanceId string `protobuf:"bytes,9,opt,name=instance_id,json=instanceId,proto3" json:"instance_id"` // 实例ID
 	// @gotags: json:"name" validate:"required"
-	Name string `protobuf:"bytes,10,opt,name=name,proto3" json:"name,omitempty"` // 名称
+	Name string `protobuf:"bytes,10,opt,name=name,proto3" json:"name" validate:"required"` // 名称
 	// @gotags: json:"description"
-	Description string `protobuf:"bytes,11,opt,name=description,proto3" json:"description,omitempty"` // 描述
+	Description string `protobuf:"bytes,11,opt,name=description,proto3" json:"description"` // 描述
 	// @gotags: json:"status" validate:"required"
-	Status string `protobuf:"bytes,12,opt,name=status,proto3" json:"status,omitempty"` // 服务商中的状态
+	Status string `protobuf:"bytes,12,opt,name=status,proto3" json:"status" validate:"required"` // 服务商中的状态
 	// @gotags: json:"tags"
-	Tags map[string]string `protobuf:"bytes,13,rep,name=Tags,proto3" json:"Tags,omitempty" protobuf_key:"bytes,1,opt,name=key,proto3" protobuf_val:"bytes,2,opt,name=value,proto3"` //标签
+	Tags map[string]string `protobuf:"bytes,13,rep,name=Tags,proto3" json:"tags" protobuf_key:"bytes,1,opt,name=key,proto3" protobuf_val:"bytes,2,opt,name=value,proto3"` //标签
 	// @gotags: json:"update_at"
-	UpdateAt int64 `protobuf:"varint,14,opt,name=update_at,json=updateAt,proto3" json:"update_at,omitempty"` // 更新时间
+	UpdateAt int64 `protobuf:"varint,14,opt,name=update_at,json=updateAt,proto3" json:"update_at"` // 更新时间
 	// @gotags: json:"sync_at"
-	SyncAt int64 `protobuf:"varint,15,opt,name=sync_at,json=syncAt,proto3" json:"sync_at,omitempty"` // 同步时间
+	SyncAt int64 `protobuf:"varint,15,opt,name=sync_at,json=syncAt,proto3" json:"sync_at"` // 同步时间
 	// @gotags: json:"sync_accout"
-	SyncAccout string `protobuf:"bytes,16,opt,name=sync_accout,json=syncAccout,proto3" json:"sync_accout,omitempty"` // 同步的账号
+	SyncAccout string `protobuf:"bytes,16,opt,name=sync_accout,json=syncAccout,proto3" json:"sync_accout"` // 同步的账号
 	// @gotags: json:"public_ip"
-	PublicIp string `protobuf:"bytes,17,opt,name=public_ip,json=publicIp,proto3" json:"public_ip,omitempty"` // 公网IP
+	PublicIp string `protobuf:"bytes,17,opt,name=public_ip,json=publicIp,proto3" json:"public_ip"` // 公网IP
 	// @gotags: json:"private_ip" validate:"required"
-	PrivateIp string `protobuf:"bytes,18,opt,name=private_ip,json=privateIp,proto3" json:"private_ip,omitempty"` // 内网IP
+	PrivateIp string `protobuf:"bytes,18,opt,name=private_ip,json=privateIp,proto3" json:"private_ip" validate:"required"` // 内网IP
 	// @gotags: json:"pay_type"
-	PayType string `protobuf:"bytes,19,opt,name=pay_type,json=payType,proto3" json:"pay_type,omitempty"` // 实例付费方式
+	PayType string `protobuf:"bytes,19,opt,name=pay_type,json=payType,proto3" json:"pay_type"` // 实例付费方式
 }
 
 func (x *Resource) Reset() {
@@ -410,29 +410,29 @@ type Describe struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @gotags: json:"cpu" validate:"required"
-	Cpu int64 `protobuf:"varint,1,opt,name=cpu,proto3" json:"cpu,omitempty"` // 核数
+	Cpu int64 `protobuf:"varint,1,opt,name=cpu,proto3" json:"cpu" validate:"required"` // 核数
 	// @gotags: json:"memory" validate:"required"
-	Memory int64 `protobuf:"varint,2,opt,name=memory,proto3" json:"memory,omitempty"` // 内存
+	Memory int64 `protobuf:"varint,2,opt,name=memory,proto3" json:"memory" validate:"required"` // 内存
 	// @gotags: json:"gpu_amount"
-	GpuAmount int64 `protobuf:"varint,3,opt,name=gpu_amount,json=gpuAmount,proto3" json:"gpu_amount,omitempty"` // GPU数量
+	GpuAmount int64 `protobuf:"varint,3,opt,name=gpu_amount,json=gpuAmount,proto3" json:"gpu_amount"` // GPU数量
 	// @gotags: json:"gpu_spec"
-	GpuSpec string `protobuf:"bytes,4,opt,name=gpu_spec,json=gpuSpec,proto3" json:"gpu_spec,omitempty"` // GPU类型
+	GpuSpec string `protobuf:"bytes,4,opt,name=gpu_spec,json=gpuSpec,proto3" json:"gpu_spec"` // GPU类型
 	// @gotags: json:"os_type"
-	OsType string `protobuf:"bytes,5,opt,name=os_type,json=osType,proto3" json:"os_type,omitempty"` // 操作系统类型，分为Windows和Linux
+	OsType string `protobuf:"bytes,5,opt,name=os_type,json=osType,proto3" json:"os_type"` // 操作系统类型，分为Windows和Linux
 	// @gotags: json:"os_name"
-	OsName string `protobuf:"bytes,6,opt,name=os_name,json=osName,proto3" json:"os_name,omitempty"` // 操作系统名称
+	OsName string `protobuf:"bytes,6,opt,name=os_name,json=osName,proto3" json:"os_name"` // 操作系统名称
 	// @gotags: json:"serial_number"
-	SerialNumber string `protobuf:"bytes,7,opt,name=serial_number,json=serialNumber,proto3" json:"serial_number,omitempty"` // 序列号
+	SerialNumber string `protobuf:"bytes,7,opt,name=serial_number,json=serialNumber,proto3" json:"serial_number"` // 序列号
 	// @gotags: json:"image_id"
-	ImageId string `protobuf:"bytes,8,opt,name=image_id,json=imageId,proto3" json:"image_id,omitempty"` // 镜像ID
+	ImageId string `protobuf:"bytes,8,opt,name=image_id,json=imageId,proto3" json:"image_id"` // 镜像ID
 	// @gotags: json:"internet_max_bandwidth_out"
-	InternetMaxBandwidthOut int64 `protobuf:"varint,9,opt,name=internet_max_bandwidth_out,json=internetMaxBandwidthOut,proto3" json:"internet_max_bandwidth_out,omitempty"` // 公网出带宽最大值，单位为 Mbps
+	InternetMaxBandwidthOut int64 `protobuf:"varint,9,opt,name=internet_max_bandwidth_out,json=internetMaxBandwidthOut,proto3" json:"internet_max_bandwidth_out"` // 公网出带宽最大值，单位为 Mbps
 	// @gotags: json:"internet_max_bandwidth_in"
-	InternetMaxBandwidthIn int64 `protobuf:"varint,10,opt,name=internet_max_bandwidth_in,json=internetMaxBandwidthIn,proto3" json:"internet_max_bandwidth_in,omitempty"` // 公网入带宽最大值，单位为 Mbps
+	InternetMaxBandwidthIn int64 `protobuf:"varint,10,opt,name=internet_max_bandwidth_in,json=internetMaxBandwidthIn,proto3" json:"internet_max_bandwidth_in"` // 公网入带宽最大值，单位为 Mbps
 	// @gotags: json:"key_pair_name"
-	KeyPairName string `protobuf:"bytes,11,opt,name=key_pair_name,json=keyPairName,proto3" json:"key_pair_name,omitempty"` // 秘钥对名称
+	KeyPairName string `protobuf:"bytes,11,opt,name=key_pair_name,json=keyPairName,proto3" json:"key_pair_name"` // 秘钥对名称
 	// @gotags: json:"security_groups"
-	SecurityGroups string `protobuf:"bytes,12,opt,name=security_groups,json=securityGroups,proto3" json:"security_groups,omitempty"` // 安全组  采用逗号分隔
+	SecurityGroups string `protobuf:"bytes,12,opt,name=security_groups,json=securityGroups,proto3" json:"security_groups"` // 安全组  采用逗号分隔
 }
 
 func (x *Describe) Reset() {
@@ -557,9 +557,9 @@ type HostSet struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @gotags: json:"total"
-	Total int64 `protobuf:"varint,1,opt,name=total,proto3" json:"total,omitempty"`
+	Total int64 `protobuf:"varint,1,opt,name=total,proto3" json:"total"`
 	// @gotags: json:"items"
-	Items []*Host `protobuf:"bytes,2,rep,name=items,proto3" json:"items,omitempty"`
+	Items []*Host `protobuf:"bytes,2,rep,name=items,proto3" json:"items"`
 }
 
 func (x *HostSet) Reset() {
@@ -724,11 +724,11 @@ type UpdateHostRequest struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @gotags: json:"update_mode"
-	UpdateMode UpdateMode `protobuf:"varint,1,opt,name=update_mode,json=updateMode,proto3,enum=demo.UpdateMode" json:"update_mode,omitempty"`
+	UpdateMode UpdateMode `protobuf:"varint,1,opt,name=update_mode,json=updateMode,proto3,enum=demo.UpdateMode" json:"update_mode"`
 	// @gotags: json:"resource"
-	Resource *Resource `protobuf:"bytes,2,opt,name=resource,proto3" json:"resource,omitempty"`
+	Resource *Resource `protobuf:"bytes,2,opt,name=resource,proto3" json:"resource"`
 	// @gotags: json:"describe"
-	Describe *Describe `protobuf:"bytes,3,opt,name=describe,proto3" json:"describe,omitempty"`
+	Describe *Describe `protobuf:"bytes,3,opt,name=describe,proto3" json:"describe"`
 }
 
 func (x *UpdateHostRequest) Reset() {
